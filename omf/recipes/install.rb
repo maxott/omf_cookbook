@@ -10,6 +10,7 @@ end
 execute "Create OMF gemset" do
   command "/usr/local/rvm/bin/rvm ruby-#{ruby_v} exec rvm gemset create omf >> #{install_log}"
 end
+r_exec = "/usr/local/rvm/bin/rvm ruby#{ruby_v}@omf exec"
 
 apt_package "libxml2-dev" do
   action :install
@@ -20,5 +21,9 @@ apt_package "libxslt-dev" do
 end
 
 execute "Installing OMF RC gem" do
-  command "/usr/local/rvm/bin/rvm ruby-#{ruby_v}@omf exec gem install omf_rc --no-ri --no-rdoc >> #{install_log}"
+  command "#{r_exec} gem install omf_rc --no-ri --no-rdoc >> #{install_log}"
+end
+
+execute "Install upstart script" do
+  command "find /usr/local/rvm/gems/*/bin -name install_omf_rc -exec #{r_exec} {} -i -c \; >> #{install_log}"
 end
