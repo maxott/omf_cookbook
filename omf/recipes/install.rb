@@ -10,7 +10,7 @@ end
 execute "Create OMF gemset" do
   command "/usr/local/rvm/bin/rvm ruby-#{ruby_v} exec rvm gemset create omf >> #{install_log}"
 end
-r_exec = "/usr/local/rvm/bin/rvm ruby#{ruby_v}@omf exec"
+r_exec = "/usr/local/rvm/bin/rvm ruby-#{ruby_v}@omf exec"
 
 apt_package "libxml2-dev" do
   action :install
